@@ -1,5 +1,8 @@
 // API Base URL
-const API = window.location.origin;
+// Permite sobrescrever a URL da API quando o frontend está hospedado separado do backend (ex.: Vercel + Render)
+// No Vercel, adicione antes do app.js no index.html:
+// <script>window.API_BASE_URL = 'https://SEU-BACKEND.onrender.com';</script>
+const API = (typeof window !== 'undefined' && window.API_BASE_URL) || window.location.origin;
 
 // Utility functions
 const qs = (sel) => document.querySelector(sel);

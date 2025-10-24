@@ -1,25 +1,25 @@
-const http = require('http');
+const http = require("http");
 
-function callNotify(clientId){
+function callNotify(clientId) {
   const data = JSON.stringify({ clientId });
   const options = {
-    hostname: 'localhost',
+    hostname: "localhost",
     port: process.env.PORT || 3000,
-    path: '/api/notifyClient',
-    method: 'POST',
+    path: "/api/notifyClient",
+    method: "POST",
     headers: {
-      'Content-Type': 'application/json',
-      'Content-Length': Buffer.byteLength(data)
-    }
+      "Content-Type": "application/json",
+      "Content-Length": Buffer.byteLength(data),
+    },
   };
-  const req = http.request(options, res => {
-    let body = '';
-    res.on('data', chunk => body += chunk);
-    res.on('end', () => {
-      console.log('Response:', res.statusCode, body);
+  const req = http.request(options, (res) => {
+    let body = "";
+    res.on("data", (chunk) => (body += chunk));
+    res.on("end", () => {
+      console.log("Response:", res.statusCode, body);
     });
   });
-  req.on('error', e => console.error('Request error', e));
+  req.on("error", (e) => console.error("Request error", e));
   req.write(data);
   req.end();
 }

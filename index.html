@@ -2,154 +2,373 @@
 <html lang="pt-BR">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#2b2b2b" />
-    <title>GoBarber - PWA (demo)</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta
+      name="description"
+      content="GoBarber - Gerenciamento inteligente de clientes para barbearias"
+    />
+    <meta name="theme-color" content="#0b74de" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <title>GoBarber - Gestão de Clientes</title>
     <link rel="manifest" href="/manifest.json" />
     <link rel="stylesheet" href="/style.css" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✂️</text></svg>"
+    />
   </head>
   <body>
     <main class="container">
+      <!-- Header -->
       <header class="app-header">
         <div class="brand">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden>
+          <svg
+            width="44"
+            height="44"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
             <rect width="24" height="24" rx="6" fill="#0b74de" />
-            <path d="M7 12c1-3 5-5 7-2" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M7 15c1-2 4-3 6-1" stroke="#fff" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+            <path
+              d="M7 12c1-3 5-5 7-2"
+              stroke="#fff"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M7 15c1-2 4-3 6-1"
+              stroke="#fff"
+              stroke-width="1.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
           <div class="brand-text">
             <div class="app-title">GoBarber</div>
-            <div class="app-sub">Agenda & Clientes</div>
+            <div class="app-sub">Gestão de Clientes</div>
           </div>
         </div>
-        <div class="actions">
-          <button id="btn-toggle-form" class="btn primary">+ Novo cliente</button>
+        <div class="header-actions">
+          <button
+            id="btn-settings"
+            class="btn ghost btn-icon"
+            title="Configurações"
+          >
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="3" />
+              <path
+                d="M12 1v6m0 6v6m10-7h-6m-6 0H4m15.364-6.364l-4.243 4.243m-6.243 0L4.636 4.636m15.364 15.364l-4.243-4.243m-6.243 0L4.636 19.364"
+              />
+            </svg>
+          </button>
+          <button id="btn-new-client" class="btn primary">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            Novo Cliente
+          </button>
         </div>
       </header>
 
-      <section id="form-section" class="card hidden">
-        <h2>Novo cliente</h2>
-        <form id="client-form">
-          <label
-            >Nome
-            <input name="name" type="text" required />
-          </label>
-          <label
-            >Telefone
-            <input
-              name="phone"
-              type="tel"
-              inputmode="tel"
-              placeholder="(xx) xxxxx-xxxx"
-            />
-          </label>
-          <label
-            >Data de aniversário
-            <input name="birthday" type="date" required />
-          </label>
-          <label
-            >Data do último corte (opcional)
-            <input name="lastCut" type="date" />
-          </label>
-          <div class="form-actions">
-            <button type="submit" class="btn primary">Salvar</button>
-            <button type="button" id="btn-cancel" class="btn">Cancelar</button>
-          </div>
-        </form>
-      </section>
-
+      <!-- Dashboard -->
       <section class="card" id="dashboard">
-        <h2>Dashboard</h2>
+        <h2 class="mb-md">Dashboard</h2>
         <div class="grid">
           <div class="stat">
-            <div class="num" id="total-count">0</div>
-            <div class="label">Clientes</div>
+            <span class="stat-num" id="total-count">0</span>
+            <span class="stat-label">Total Clientes</span>
           </div>
           <div class="stat">
-            <div class="num" id="count-15">0</div>
-            <div class="label">Sem corte > 15 dias</div>
+            <span class="stat-num" id="count-15">0</span>
+            <span class="stat-label">> 15 dias</span>
           </div>
           <div class="stat">
-            <div class="num" id="count-30">0</div>
-            <div class="label">Sem corte > 30 dias</div>
+            <span class="stat-num" id="count-30">0</span>
+            <span class="stat-label">> 30 dias</span>
           </div>
           <div class="stat">
-            <div class="num" id="count-bday-14">0</div>
-            <div class="label">Aniversários próximas 2 semanas</div>
+            <span class="stat-num" id="count-bday-14">0</span>
+            <span class="stat-label">Aniversários 2sem</span>
           </div>
         </div>
-        <div class="notify-actions">
-          <button id="btn-start-notif" class="btn">Ativar notificações</button>
-          <select id="notif-interval">
-            <option value="1440">Checar a cada 24h</option>
-            <option value="60">Checar a cada 1h</option>
-            <option value="1">Modo demo: checar a cada 1min</option>
-          </select>
+        <div class="form-actions mt-lg">
+          <button id="btn-enable-notif" class="btn secondary">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+              <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+            </svg>
+            Ativar Notificações
+          </button>
         </div>
       </section>
 
+      <!-- Filters -->
       <section class="card" id="filters">
-        <h2>Filtrar clientes</h2>
+        <h2 class="mb-md">Filtrar Clientes</h2>
         <div class="filters-row">
-          <input
-            id="filter-name"
-            type="search"
-            placeholder="Pesquisar por nome"
-          />
-          <select id="filter-bday-month">
-            <option value="">Mês (qualquer)</option>
-            <option value="1">Janeiro</option>
-            <option value="2">Fevereiro</option>
-            <option value="3">Março</option>
-            <option value="4">Abril</option>
-            <option value="5">Maio</option>
-            <option value="6">Junho</option>
-            <option value="7">Julho</option>
-            <option value="8">Agosto</option>
-            <option value="9">Setembro</option>
-            <option value="10">Outubro</option>
-            <option value="11">Novembro</option>
-            <option value="12">Dezembro</option>
-          </select>
+          <div class="form-group mb-0">
+            <input
+              id="filter-name"
+              type="search"
+              placeholder="🔍 Pesquisar por nome..."
+            />
+          </div>
+          <div class="form-group mb-0">
+            <select id="filter-bday-month">
+              <option value="">📅 Mês (qualquer)</option>
+              <option value="1">Janeiro</option>
+              <option value="2">Fevereiro</option>
+              <option value="3">Março</option>
+              <option value="4">Abril</option>
+              <option value="5">Maio</option>
+              <option value="6">Junho</option>
+              <option value="7">Julho</option>
+              <option value="8">Agosto</option>
+              <option value="9">Setembro</option>
+              <option value="10">Outubro</option>
+              <option value="11">Novembro</option>
+              <option value="12">Dezembro</option>
+            </select>
+          </div>
         </div>
         <div class="filters-row">
-          <label
-            >Período aniversário <input id="filter-bday-from" type="date" /> até
-            <input id="filter-bday-to" type="date" />
-          </label>
-        </div>
-        <div class="filters-row">
-          <label
-            >Último corte
+          <div class="form-group mb-0">
             <select id="filter-lastcut">
-              <option value="">Qualquer</option>
+              <option value="">✂️ Último corte (qualquer)</option>
               <option value=">15">Sem corte > 15 dias</option>
               <option value=">30">Sem corte > 30 dias</option>
             </select>
-          </label>
+          </div>
         </div>
       </section>
 
+      <!-- Client List -->
       <section class="card" id="list">
-        <h2>Clientes</h2>
+        <h2 class="mb-md">Clientes</h2>
         <div id="clients-list"></div>
+        <p id="empty-state" class="text-center text-muted hidden">
+          Nenhum cliente cadastrado ainda. Clique em "Novo Cliente" para
+          começar! 📝
+        </p>
       </section>
 
-      <div id="client-detail-modal" class="card hidden">
-        <h2 id="detail-name">Cliente</h2>
-        <div id="detail-body"></div>
-        <div class="form-actions">
-          <button id="detail-close" class="btn">Fechar</button>
-        </div>
-      </div>
-
+      <!-- Footer -->
       <footer class="app-footer">
-        <small
-          >Leve PWA demo — dados armazenados centralmente no servidor
-          SQLite.</small
-        >
+        <small>GoBarber PWA - Gestão Inteligente de Clientes © 2025</small>
       </footer>
     </main>
+
+    <!-- Modal: New/Edit Client -->
+    <div id="modal-client" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="modal-client-title">Novo Cliente</h2>
+          <button class="close-modal" aria-label="Fechar">×</button>
+        </div>
+        <form id="client-form">
+          <input type="hidden" id="client-id" name="id" />
+          <div class="form-group">
+            <label for="client-name">Nome *</label>
+            <input
+              id="client-name"
+              name="name"
+              type="text"
+              required
+              placeholder="João Silva"
+            />
+          </div>
+          <div class="form-group">
+            <label for="client-phone">Telefone</label>
+            <input
+              id="client-phone"
+              name="phone"
+              type="tel"
+              inputmode="tel"
+              placeholder="(11) 99999-9999"
+            />
+          </div>
+          <div class="form-group">
+            <label for="client-birthday">Data de Aniversário *</label>
+            <input id="client-birthday" name="birthday" type="date" required />
+          </div>
+          <div class="form-group">
+            <label for="client-lastcut">Data do Último Corte (opcional)</label>
+            <input id="client-lastcut" name="lastCut" type="date" />
+          </div>
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Salvar</button>
+            <button type="button" class="btn close-modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal: Client Details -->
+    <div id="modal-detail" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title" id="detail-name">Cliente</h2>
+          <button class="close-modal" aria-label="Fechar">×</button>
+        </div>
+        <div id="detail-body"></div>
+        <div class="form-actions">
+          <button id="btn-edit-from-detail" class="btn primary">Editar</button>
+          <button class="btn close-modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal: Settings -->
+    <div id="modal-settings" class="modal hidden">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2 class="modal-title">⚙️ Configurações de Notificações</h2>
+          <button class="close-modal" aria-label="Fechar">×</button>
+        </div>
+        <form id="settings-form">
+          <div class="settings-group">
+            <h3>Frequência das Notificações</h3>
+            <div class="form-group">
+              <select id="notify-frequency" name="notify_frequency">
+                <option value="daily">Diariamente</option>
+                <option value="every3days">A cada 3 dias</option>
+                <option value="weekly">Semanalmente</option>
+                <option value="disabled">Desativado</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="notify-time">Horário das Notificações</label>
+              <input
+                id="notify-time"
+                name="notify_time"
+                type="time"
+                value="09:00"
+              />
+              <small class="text-muted"
+                >Escolha o melhor horário para receber as notificações</small
+              >
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <h3>Tipos de Alertas</h3>
+            <div class="checkbox-group">
+              <input
+                type="checkbox"
+                id="notify-birthdays"
+                name="notify_birthdays"
+                checked
+              />
+              <label for="notify-birthdays">
+                <strong>🎂 Aniversários</strong><br />
+                <small class="text-muted"
+                  >Receber alertas sobre aniversários próximos (hoje, 3 dias, 7
+                  dias)</small
+                >
+              </label>
+            </div>
+            <div class="checkbox-group">
+              <input
+                type="checkbox"
+                id="notify-no-cut-15"
+                name="notify_no_cut_15"
+                checked
+              />
+              <label for="notify-no-cut-15">
+                <strong>✂️ Clientes sem corte > 15 dias</strong><br />
+                <small class="text-muted"
+                  >Alertas sobre clientes que não cortam há mais de 15
+                  dias</small
+                >
+              </label>
+            </div>
+            <div class="checkbox-group">
+              <input
+                type="checkbox"
+                id="notify-no-cut-30"
+                name="notify_no_cut_30"
+                checked
+              />
+              <label for="notify-no-cut-30">
+                <strong>⚠️ Clientes sem corte > 30 dias</strong><br />
+                <small class="text-muted"
+                  >Alertas sobre clientes que não cortam há mais de 30
+                  dias</small
+                >
+              </label>
+            </div>
+          </div>
+
+          <div class="settings-group">
+            <h3>Testar Notificações</h3>
+            <p class="text-muted">
+              Envie uma notificação de teste para verificar se está tudo
+              funcionando.
+            </p>
+            <button
+              type="button"
+              id="btn-test-notification"
+              class="btn secondary"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
+                <path d="M13.73 21a2 2 0 0 1-3.46 0" />
+              </svg>
+              Enviar Notificação de Teste
+            </button>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary">
+              Salvar Configurações
+            </button>
+            <button type="button" class="btn close-modal">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
 
     <script src="/app.js" type="module"></script>
   </body>
